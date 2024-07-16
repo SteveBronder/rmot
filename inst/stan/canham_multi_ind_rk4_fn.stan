@@ -2,7 +2,7 @@
 functions{
   //Growth function for use with Runge-Kutta method
   //pars = (g_max, s_max, k)
-  vector DE(real t, vector y, real max_growth, real diameter, real ind_k){
+  vector DE(vector y, real max_growth, real diameter, real ind_k){
     vector[size(y)] dydt = max_growth *
     exp(-0.5 * square(log(y / diameter) / ind_k));
     return dydt;
@@ -23,10 +23,10 @@ functions{
     real k4;
     real y_hat;
 
-    k1 = DE(y, g_max, S_max, k);
-    k2 = DE(y+interval*k1/2.0, g_max, S_max, k);
-    k3 = DE(y+interval*k2/2.0, g_max, S_max, k);
-    k4 = DE(y+interval*k3, g_max, S_max, k);
+    k1 = DE([y]', g_max, S_max, k)[1];
+    k2 = DE([y+interval*k1/2.0]', g_max, S_max, k)[1];
+    k3 = DE([y+interval*k2/2.0]', g_max, S_max, k)[1];
+    k4 = DE([y+interval*k3]', g_max, S_max, k)[1];
 
     y_hat = y + (1.0/6.0) * (k1 + 2.0*k2 + 2.0*k3 + k4) * interval;
 
