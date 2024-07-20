@@ -122,15 +122,15 @@ model {
                    species_k_sd);
 
   //Species level
-  species_max_growth_mean ~student_t(4, 0, 1);
-  species_max_growth_sd ~ student_t(3, 0, 1);
-  species_diameter_at_max_growth_mean ~student_t(4, 0, 1);
-  species_diameter_at_max_growth_sd ~ student_t(3, 0, 1);
-  species_k_mean ~student_t(4, 0, 1);
-  species_k_sd ~ student_t(3, 0, 1);
+  species_max_growth_mean ~normal(0, 1);
+  species_max_growth_sd ~cauchy(0, 1);
+  species_diameter_at_max_growth_mean ~normal(0, 1);
+  species_diameter_at_max_growth_sd ~cauchy(0, 1);
+  species_k_mean ~normal(0, 1);
+  species_k_sd ~cauchy(0, 1);
 
   //Global level
-  global_error_sigma ~ student_t(3, 0, 1);
+  global_error_sigma ~cauchy(0, 2);
 }
 
 
