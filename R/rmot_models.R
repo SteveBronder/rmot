@@ -123,8 +123,8 @@ rmot_linear_single_ind <- function(){
        y_obs = NULL,
        obs_index = NULL,
        time = NULL,
-       y_bar = NULL,
        y_0_obs = NULL,
+       y_bar = NULL,
        model = "linear_single_ind")
 }
 
