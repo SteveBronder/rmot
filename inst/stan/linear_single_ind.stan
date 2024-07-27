@@ -62,7 +62,7 @@ data {
 parameters {
   //Individual level
   real<lower=0> ind_y_0;
-  real<lower=0> ind_beta_0;
+  real<lower=0> ind_const;
   real<lower=0> ind_beta_1;
 
   //Global level
@@ -74,7 +74,7 @@ model {
   real y_hat[n_obs];
   array[3] real pars;
 
-  pars[1] = ind_beta_0;
+  pars[1] = ind_const;
   pars[2] = ind_beta_1;
   pars[3] = y_bar;
 
@@ -96,7 +96,7 @@ model {
   //Priors
   //Individual level
   ind_y_0 ~ normal(y_0_obs, global_error_sigma);
-  ind_beta_0 ~lognormal(0, 5);
+  ind_const ~lognormal(0, 5);
   ind_beta_1 ~lognormal(0, 5);
 
   //Global level
@@ -107,8 +107,11 @@ generated quantities{
   real y_hat[n_obs];
   real Delta_hat[n_obs];
   array[3] real pars;
+  real ind_beta_0;
 
-  pars[1] = ind_beta_0;
+  ind_beta_0 = ind_const + ind_beta_1*y_bar;
+
+  pars[1] = ind_const;
   pars[2] = ind_beta_1;
   pars[3] = y_bar;
 
